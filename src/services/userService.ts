@@ -4,12 +4,12 @@ import bcrypt from "bcrypt";
 
 export class UserService {
   async createUser(data: {
-    nom: string;
-    prenom: string;
+    firstname: string;
+    lastname: string;
     email: string;
     password: string;
     role: Role;
-  }): Promise<IUser> {
+  }): Promise<object> {
     const existingUser = await User.findOne({
       email: data.email,
     });
@@ -17,10 +17,10 @@ export class UserService {
     if (existingUser) {
       throw new Error("User already exists");
     }
-const hashedPassword = await bcrypt.hash(data.password, 12);
+    const hashedPassword = await bcrypt.hash(data.password, 12);
     const user = await User.create({
-      firstname: data.nom,
-      lastname: data.prenom,
+      firstname: data.firstname,
+      lastname: data.lastname,
       email: data.email,
       password: hashedPassword,
       role: data.role,
@@ -33,7 +33,11 @@ const hashedPassword = await bcrypt.hash(data.password, 12);
   async getUsers(): Promise<IUser[]> {
     return await User.find();
   }
+  
 
+  async getUserByEmail(email: string): Promise<IUser | null> {
+    return await User.findOne({email});
+  }
   async getUserById(id: string): Promise<IUser | null> {
     return await User.findById(id);
   }
