@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { VehicleStatus } from "../types/enums.js";
 
-interface Iremorque extends Document {
+export interface Iremorque extends Document {
   type: string;
   matricule: number;
   chargeMax: number;
