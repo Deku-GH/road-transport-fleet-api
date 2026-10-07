@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 class AuthController {
-  SingUp = async (req: Request, res: Response): Promise<void> => {
+  signup = async (req: Request, res: Response): Promise<void> => {
     try {
       const user = await userService.createUser(req.body);
 
