@@ -1,6 +1,7 @@
 import joi from "joi";
 
 export const signUpSchema = joi.object({
+
   firstname: joi.string().required().messages({
     "string.base": "Le prénom doit être une chaîne de caractères.",
     "string.empty": "Le prénom est obligatoire.",
