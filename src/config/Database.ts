@@ -14,8 +14,10 @@ class Database {
   }
 
   async connect(): Promise<void> {
+    console.log("🔌 Connecting to MongoDB...");
+    console.log("📍 URL:", this.url);
+
     await mongoose.connect(this.url);
-       console.log("MongoDB connected successfully");
   }
 }
 
