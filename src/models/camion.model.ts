@@ -13,14 +13,17 @@ const comionSchema = new Schema<Icomion>({
     type: String,
     required: true,
   },
+
   matricule: {
     type: Number,
     required: true,
   },
+
   kilometrage: {
-    typre: Number,
-    require: true,
+    type: Number,
+    required: true,
   },
+
   status: {
     type: String,
     enum: Object.values(VehicleStatus),
@@ -28,4 +31,7 @@ const comionSchema = new Schema<Icomion>({
   },
 });
 
-export const comion = mongoose.model<Icomion>("comion", comionSchema);
+export const comion = mongoose.model<Icomion>(
+  "comion",
+  comionSchema
+);

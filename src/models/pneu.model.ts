@@ -13,7 +13,7 @@ export interface IPneu extends Document {
 const pneuSchema = new Schema<IPneu>({
   camionId: {
     type: Schema.Types.ObjectId,
-    ref: "Camion",
+    ref: "comion",
     required: true,
   },
 

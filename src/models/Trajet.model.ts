@@ -8,13 +8,13 @@ export interface ITrajet extends Document {
   dateArriveePrevue: Date;
   marchandise: string;
 
-  kmDepart?: number;
-  kmArrivee?: number;
-  volumeGasoil?: number;
-  coutGasoil?: number;
+  kmDepart: number;
+  kmArrivee: number;
+  volumeGasoil: number;
+  coutGasoil: number;
 
   statut: TrajetStatus;
-  remarques?: string;
+
 }
 
 const trajetSchema = new Schema<ITrajet>({
@@ -69,9 +69,6 @@ const trajetSchema = new Schema<ITrajet>({
     default: TrajetStatus.A_FAIRE,
   },
 
-  remarques: {
-    type: String,
-  },
 });
 
-export const Trajet = mongoose.model<ITrajet>("Trajet", trajetSchema);
+export const trajet = mongoose.model<ITrajet>("Trajet", trajetSchema);

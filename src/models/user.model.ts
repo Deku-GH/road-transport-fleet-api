@@ -14,28 +14,24 @@ const userSchema = new Schema<IUser>(
   {
     firstname: {
       type: String,
-     
     },
 
     lastname: {
       type: String,
-  
     },
 
     email: {
       type: String,
-  
     },
 
     password: {
       type: String,
-      
     },
 
     role: {
       type: String,
       enum: Object.values(Role),
-      required: true,
+      default: Role.CHAUFFEUR,
     },
 
     status: {
@@ -44,9 +40,9 @@ const userSchema = new Schema<IUser>(
       default: UserStatus.ACTIVE,
     },
   },
-  { 
+  {
     timestamps: true,
-  }
+  },
 );
 
 export const User = mongoose.model<IUser>("User", userSchema);
