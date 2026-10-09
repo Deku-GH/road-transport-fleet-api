@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { remorqueService } from "../services/remorqueService.js";
 
 class RemorqueController {
-
   async getAllRemorques(req: Request, res: Response) {
     try {
       const remorques = await remorqueService.getAllRemorques();
@@ -12,19 +11,16 @@ class RemorqueController {
         data: remorques,
       });
     } catch (error) {
-      console.error(error);
-
-      return res.status(500).json({
-        success: false,
-        message: "Failed to retrieve remorques",
-      });
+      if (error instanceof Error) {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to retrieve remorques",
+        });
+      }
     }
   }
 
-  async getRemorqueById(
-    req: Request<{ id: string }>,
-    res: Response
-  ) {
+  async getRemorqueById(req: Request<{ id: string }>, res: Response) {
     try {
       const { id } = req.params;
 
@@ -42,20 +38,19 @@ class RemorqueController {
         data: remorque,
       });
     } catch (error) {
-      console.error(error);
-
-      return res.status(500).json({
-        success: false,
-        message: "Failed to retrieve remorque",
-      });
+      if (error instanceof Error) {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to retrieve remorque",
+          error:error.message
+        });
+      }
     }
   }
 
   async createRemorque(req: Request, res: Response) {
     try {
-      const remorque = await remorqueService.createRemorque(
-        req.body
-      );
+      const remorque = await remorqueService.createRemorque(req.body);
 
       return res.status(201).json({
         success: true,
@@ -63,25 +58,23 @@ class RemorqueController {
         data: remorque,
       });
     } catch (error) {
-      console.error(error);
-
-      return res.status(500).json({
-        success: false,
-        message: "Failed to create remorque",
-      });
+      if (error instanceof Error) {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to create remorque",
+        });
+      }
     }
   }
 
-  // PUT /remorques/:id
-  async updateRemorque(
-    req: Request<{ id: string }>,
-    res: Response
-  ) {
+  async updateRemorque(req: Request<{ id: string }>, res: Response) {
     try {
       const { id } = req.params;
 
-      const updatedRemorque =
-        await remorqueService.updateRemorque(id, req.body);
+      const updatedRemorque = await remorqueService.updateRemorque(
+        id,
+        req.body,
+      );
 
       if (!updatedRemorque) {
         return res.status(404).json({
@@ -96,25 +89,20 @@ class RemorqueController {
         data: updatedRemorque,
       });
     } catch (error) {
-      console.error(error);
-
-      return res.status(500).json({
-        success: false,
-        message: "Failed to update remorque",
-      });
+      if (error instanceof Error) {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to update remorque",
+        });
+      }
     }
   }
 
-  // DELETE /remorques/:id
-  async deleteRemorque(
-    req: Request<{ id: string }>,
-    res: Response
-  ) {
+  async deleteRemorque(req: Request<{ id: string }>, res: Response) {
     try {
       const { id } = req.params;
 
-      const deletedRemorque =
-        await remorqueService.deleteRemorque(id);
+      const deletedRemorque = await remorqueService.deleteRemorque(id);
 
       if (!deletedRemorque) {
         return res.status(404).json({
@@ -128,12 +116,12 @@ class RemorqueController {
         message: "Remorque deleted successfully",
       });
     } catch (error) {
-      console.error(error);
-
-      return res.status(500).json({
-        success: false,
-        message: "Failed to delete remorque",
-      });
+      if (error instanceof Error) {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to delete remorque",
+        });
+      }
     }
   }
 }

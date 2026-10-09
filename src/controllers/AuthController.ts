@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 class AuthController {
   signup = async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log("SIGNUP REQUEST RECEIVED");
+      console.log(req.body);
       const user = await userService.createUser(req.body);
 
       res.status(201).json({

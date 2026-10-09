@@ -57,13 +57,14 @@ class ComionController {
         data: comion,
       });
     } catch (error) {
-      console.error(error);
+       if (error instanceof Error) {
           
       return res.status(500).json({
         success: false,
         message: "Failed to create comion",
+        error:error.message,
       });
-    }
+        }}
   }
 
   async updateComion(req: Request<{ id: string }>, res: Response) {
