@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { comionController } from "../controllers/ComionController.js";
-import { comion } from "../models/camion.model.js";
+
 const route = Router();
 route.get("/", comionController.getAllComions);
 route.post("/", comionController.createComion);
