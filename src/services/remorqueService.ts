@@ -13,18 +13,11 @@ class RemorqueService {
     return await remorque.create(data);
   }
 
-  async updateRemorque(
-    id: string,
-    data: Partial<Iremorque>
-  ) {
-    return await remorque.findByIdAndUpdate(
-      id,
-      data,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+  async updateRemorque(id: string, data: Partial<Iremorque>) {
+    return await remorque.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true,
+    });
   }
 
   async deleteRemorque(id: string) {

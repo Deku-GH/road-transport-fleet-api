@@ -1,8 +1,8 @@
 import { User, IUser } from "../models/user.model.js";
-import { Role, UserStatus } from "../types/enums.js";
+  import { Role, UserStatus } from "../types/enums.js";
 import bcrypt from "bcrypt";
 
-export class UserService {
+ class UserService {
   async createUser(data: {
     firstname: string;
     lastname: string;
@@ -10,6 +10,7 @@ export class UserService {
     password: string;
     role: Role;
   }): Promise<object> {
+    console.log("🔥 Creating user...");
     const existingUser = await User.findOne({
       email: data.email,
     });
@@ -26,7 +27,7 @@ export class UserService {
       role: data.role,
       status: UserStatus.ACTIVE,
     });
-
+    console.log("🔥 User created!");
     return user;
   }
 
