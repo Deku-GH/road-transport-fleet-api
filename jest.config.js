@@ -1,17 +1,21 @@
+
 export default {
   testEnvironment: "node",
 
-  setupFiles: ["<rootDir>/tests/setup.ts"],
+  extensionsToTreatAsEsm: [".ts"],
 
   transform: {
-    "^.+\\.tsx?$": [
+    "^.+\\.(ts|tsx)$": [
       "@swc/jest",
       {
         jsc: {
+          target: "es2022",
           parser: {
             syntax: "typescript"
           },
-          target: "es2022"
+          transform: {
+            useDefineForClassFields: true
+          }
         },
         module: {
           type: "es6"
@@ -20,7 +24,11 @@ export default {
     ]
   },
 
+  testMatch: ["<rootDir>/tests/**/*.test.ts"],
+
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1"
-  }
+  },
+
+  clearMocks: true
 };
