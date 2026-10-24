@@ -3,14 +3,8 @@ import { User, IUser } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 
  class UserService {
-  async createUser(data: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-    role: Role;
-  }): Promise<object> {
-    console.log("🔥 Creating user...");
+  async createUser(data:IUser): Promise<object> {
+   
     const existingUser = await User.findOne({
       email: data.email,
     });
@@ -20,6 +14,7 @@ import bcrypt from "bcrypt";
     }
     const hashedPassword = await bcrypt.hash(data.password, 12);
     const user = await User.create({
+      nickname:data.nickname,
       firstname: data.firstname,
       lastname: data.lastname,
       email: data.email,
@@ -27,7 +22,6 @@ import bcrypt from "bcrypt";
       role: data.role,
       status: UserStatus.ACTIVE,
     });
-    console.log("🔥 User created!");
     return user;
   }
 

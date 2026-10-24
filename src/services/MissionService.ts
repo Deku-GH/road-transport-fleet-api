@@ -1,6 +1,7 @@
 import { Mission, IMission } from "../models/Mission.model.js";
 
 export class MissionService {
+  
   async createMission(data: Partial<IMission>) {
     return await Mission.create(data);
   }

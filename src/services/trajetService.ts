@@ -5,8 +5,8 @@ export class TrajetService {
     return await trajet.create(data);
   }
 
-  async getAllTrajets() {
-    return await trajet.find();
+  async getAllTrajets():Promise<ITrajet[]> {
+    return  await trajet.find();
   }
 
   async getTrajetById(id: string) {
