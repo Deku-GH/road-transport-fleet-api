@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import { Role, UserStatus } from "../types/enums.js";
 
 export interface IUser extends Document {
+  nickname: string;
   firstname: string;
   lastname: string;
   email: string;
@@ -12,6 +13,10 @@ export interface IUser extends Document {
 
 const userSchema = new Schema<IUser>(
   {
+    nickname: {
+      type: String,
+      required:false,
+    },
     firstname: {
       type: String,
     },

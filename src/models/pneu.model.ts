@@ -8,6 +8,8 @@ export interface IPneu extends Document {
   kilometrage: number;
   kmLimite: number;
   status: PneuStatus;
+  profondeurSculpture:number;
+  archived :boolean;
 }
 
 const pneuSchema = new Schema<IPneu>({
@@ -37,6 +39,17 @@ const pneuSchema = new Schema<IPneu>({
     type: Number,
     required: true,
     min: 0,
+  },
+   profondeurSculpture: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+archived: {
+    type: Boolean,
+    required: true,
+    default:false,
+  
   },
 
   status: {

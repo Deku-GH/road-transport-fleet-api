@@ -4,7 +4,7 @@ import { MaintenanceType, MaintenanceStatus } from "../types/enums.js";
 export interface IMaintenance extends Document {
   camionId?: mongoose.Types.ObjectId;
   remorqueId?: mongoose.Types.ObjectId;
-
+  description: string;
   type: MaintenanceType;
   seuilKm: number;
   kilometrageActuel: number;
@@ -38,6 +38,11 @@ const maintenanceSchema = new Schema<IMaintenance>({
     type: Number,
     required: true,
     min: 0,
+  },
+  description: {
+    type: String,
+    trim: true,
+    default: "",
   },
 
   status: {
