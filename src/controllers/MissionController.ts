@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { missionService } from "../services/MissionService.js";
+import { checkVicilestatus } from "../repo/mission.rule.js";
+import { downloadMissionPdf } from "../services/missionPdf.service.js";
 
 class MissionController {
   async getAllMissions(req: Request, res: Response) {
@@ -49,6 +51,8 @@ class MissionController {
 
   async createMission(req: Request, res: Response) {
     try {
+      const { camionId, remorqueId } = req.body;
+      await checkVicilestatus( camionId, remorqueId );
       const mission = await missionService.createMission(req.body);
 
       return res.status(201).json({
@@ -56,14 +60,15 @@ class MissionController {
         message: "Mission created successfully",
         data: mission,
       });
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({
-          success: false,
-          message: "Failed to create mission",
-          error: error.message,
-        });
-      }
+    } catch (error: unknown) {
+      const err = error as Error & { statusCode?: number };
+      return res.status(err.statusCode ?? 500).json({
+        success: false,
+        message:
+          err.statusCode && err.statusCode < 500
+            ? err.message
+            : "Failed to create mission",
+      });
     }
   }
 
@@ -112,7 +117,7 @@ class MissionController {
         success: true,
         message: "Mission deleted successfully",
       });
-    } catch (error) {
+    } catch ( error ) {
       console.error(error);
 
       return res.status(500).json({
@@ -121,6 +126,22 @@ class MissionController {
       });
     }
   }
+    async downloadMission(req:Request,res:Response): Promise<void> {
+  try {
+  
+    
+
+console.log("ej")
+  } catch (error) {
+    console.error("Mission PDF error:", error);
+
+    if (!res.headersSent) {
+      res.status(500).json({
+        message: "Failed to generate mission PDF",
+      });
+    }
+  }
+};
 }
 
 export const missionController = new MissionController();
